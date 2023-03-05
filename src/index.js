@@ -41,7 +41,39 @@ function onInput(e) {
 }
 
 
+function updateCountryList(countries) {
+   const markup = countries
+     .map(
+      ({ flags, name }) => `
+        <li>
+            <div class="wrapper">
+                <img
+                    src="${flags.svg}"
+                    alt="${name.common}"
+                    class="image"
+                />
+                <span class="details-value">${name.common}</span>
+            </div>
+        </li>
+    `
+    )
+     .join('');
+  return markup
+}
 
+function updateCountryInfo(countries) {
+   const markup = countries
+    .map(({ capital, population, languages }) => {
+      return `
+      <ul>
+          <li><p><b>Capital:</b> ${capital}</p></li>
+          <li><p><b>Population:</b> ${population}</p></li>
+          <li><p><b>Languages:</b> ${Object.values(languages)}</p></li>
+      </ul>`;
+    })
+    .join('');
+  return markup;
+}
 
 
     
