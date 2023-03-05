@@ -1,10 +1,9 @@
-export  {fetchCountries}
 
-function fetchCountries(name) {
-    const url = `https://restcountries.com/v3.1/name/{name}`;
-    fetch(url)
-        .then(r => {
-            if (!r.ok) { throw new Error(r.status) }
-            return r.json()
-         
-        })}
+const COUNTRIES_LIST = 'https://restcountries.com/v3.1/name/';
+const fields = 'fields=name,capital,population,flags,languages';
+
+export function fetchCountries(countries) {
+  return fetch(`${COUNTRIES_LIST}${countries}?${fields}`)
+    .then(r => r.json())
+    .catch(error => console.log(error));
+}
