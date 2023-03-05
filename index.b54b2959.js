@@ -1,2 +1,0 @@
-!function(){function e(e){return e&&e.__esModule?e.default:e}var t={};Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t,n){t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n;return e};var n=e(t)({inputEl:document.querySelector("#search-box"),countryList:document.querySelector(".country-list")},"countryList",document.querySelector(".country-info"));n.inputEl.addEventListener("input",(function(e){e.preventDefault();n.inputEl.value.trim()}))}();
-//# sourceMappingURL=index.b54b2959.js.map
