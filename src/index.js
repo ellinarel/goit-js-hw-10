@@ -11,29 +11,29 @@ countryInfo : document.querySelector(`.country-info`),
 
 const DEBOUNCE_DELAY = 300;
 
-refs.inputEl.addEventListener(`input`,debounce(onInput,DEBOUNCE_DELAY)) 
+refs.inputEl.addEventListener(`input`,debounce(onInput, DEBOUNCE_DELAY)) 
 
 function onInput(e) {
   e.preventDefault()
-  const name = refs.inputEl.value.trim();
-  if (name === '') {
+  const seacrhname = refs.inputEl.value.trim();
+  if (seacrhname === '') {
     return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '');
   }
    
- fetchCountries(name)
+ fetchCountries(seacrhname)
        .then(countries => {
       refs.countryList.innerHTML = '';
       refs.countryInfo.innerHTML = '';
 
       if (countries.length === 1) {
-        refs.countryList.insertAdjacentHTML('beforestart',updateCountryList());
-        refs.countryInfo.insertAdjacentHTML('beforestart',updateCountryInfo());
+        refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
+        refs.countryInfo.insertAdjacentHTML('beforeend',updateCountryInfo(countries));
       } else if (countries.length >= 10) {
         Notiflix.Notify.info(
     `Too many matches found. Please enter a more specific name.`
   );
       } else {
-        refs.countryList.insertAdjacentHTML('beforestart',updateCountryList());
+        refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
       }
     })
         
@@ -51,6 +51,8 @@ function updateCountryList(countries) {
                     src="${flags.svg}"
                     alt="${name.common}"
                     class="image"
+                     width="35px"
+                      height="25px"
                 />
                 <span class="details-value">${name.common}</span>
             </div>
