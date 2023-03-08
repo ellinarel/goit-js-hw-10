@@ -16,17 +16,10 @@ refs.inputEl.addEventListener(`input`,debounce(onInput, DEBOUNCE_DELAY))
 function onInput(e) {
   e.preventDefault()
   const seacrhname = refs.inputEl.value.trim();
-  if (seacrhname === '') {
-    return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '');
-  }
-   
+    crearMarkup()
  fetchCountries(seacrhname)
        .then(countries => {
-      refs.countryList.innerHTML = '';
-      refs.countryInfo.innerHTML = '';
-
       if (countries.length === 1) {
-        refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
         refs.countryInfo.insertAdjacentHTML('beforeend',updateCountryInfo(countries));
       } else if (countries.length >= 10) {
         Notiflix.Notify.info(
@@ -36,10 +29,11 @@ function onInput(e) {
         refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
       }
     })
-        
-   .catch(Notiflix.Notify.failure(`Oops, there is no country with that name`))
 }
-
+function crearMarkup() {
+  return  refs.countryList.innerHTML = '',
+          refs.countryInfo.innerHTML = '';
+}
 
 function updateCountryList(countries) {
    const markup = countries
