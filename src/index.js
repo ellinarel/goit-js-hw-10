@@ -13,20 +13,15 @@ const DEBOUNCE_DELAY = 300;
 
 refs.inputEl.addEventListener(`input`,debounce(onInput, DEBOUNCE_DELAY)) 
 function onInput(e) {
-  e.preventDefault()
 
+  e.preventDefault()
+  clearMarkup()
   const seacrhname = refs.inputEl.value.trim();
-    if (seacrhname === '') {
-    return (refs.countryList.innerHTML = ''), (refs.countryInfo.innerHTML = '');
-  }
 
   fetchCountries(seacrhname)
    .then(countries => {
-      refs.countryList.innerHTML = '';
-      refs.countryInfo.innerHTML = '';
       if (countries.length === 1) {
         refs.countryInfo.insertAdjacentHTML('beforeend', updateCountryInfo(countries));
-         refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
       } else if (countries.length >= 10) {
         Notiflix.Notify.info(
     `Too many matches found. Please enter a more specific name.`
@@ -37,6 +32,12 @@ function onInput(e) {
    })
   .catch(()=> Notiflix.Notify.failure(`Oops, there is no country with that name`));
 }
+function clearMarkup() {
+  refs.countryList.innerHTML = '';
+  refs.countryInfo.innerHTML = '';
+}
+
+
 
 function updateCountryList(countries) {
    const markup = countries
@@ -72,11 +73,6 @@ function updateCountryInfo(countries) {
     })
     .join('');
   return markup;
-}
-
-clearmarkup(){
-  refs.countryList.innerHTML = '';
-  refs.countryInfo.innerHTML = '';
 }
 
 
