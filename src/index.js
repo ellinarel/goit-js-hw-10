@@ -13,10 +13,9 @@ const DEBOUNCE_DELAY = 300;
 
 refs.inputEl.addEventListener(`input`,debounce(onInput, DEBOUNCE_DELAY)) 
 function onInput(e) {
-
   e.preventDefault()
-  clearMarkup()
   const seacrhname = refs.inputEl.value.trim();
+   clearMarkup()
 
   fetchCountries(seacrhname)
    .then(countries => {

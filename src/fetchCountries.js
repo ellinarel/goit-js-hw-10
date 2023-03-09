@@ -6,7 +6,7 @@ export function fetchCountries(countriesName) {
   fetch(`${COUNTRIES_LIST}${countriesName}?${fields}`)
     .then(response => {
       if (!response.ok) {
-        return Notify.warning('Oops, there is no country with that name.');
+        return Notiflix.Notify.warning('Oops, there is no country with that name.');
       }
     return response.json();
   });
