@@ -14,13 +14,14 @@ const DEBOUNCE_DELAY = 300;
 refs.inputEl.addEventListener(`input`,debounce(onInput, DEBOUNCE_DELAY)) 
 function onInput(e) {
   e.preventDefault()
-  const seacrhname = refs.inputEl.value.trim();
    clearMarkup()
-
+  const seacrhname = refs.inputEl.value.trim();
+  
   fetchCountries(seacrhname)
    .then(countries => {
       if (countries.length === 1) {
         refs.countryInfo.insertAdjacentHTML('beforeend', updateCountryInfo(countries));
+        refs.countryList.insertAdjacentHTML('beforeend',updateCountryList(countries));
       } else if (countries.length >= 10) {
         Notiflix.Notify.info(
     `Too many matches found. Please enter a more specific name.`
@@ -62,9 +63,9 @@ function updateCountryList(countries) {
 
 function updateCountryInfo(countries) {
    const markup = countries
-    .map(({ capital, population, languages }) => {
+    .map(({ capital, population, languages}) => {
       return `
-      <ul>
+        </li>
           <li><p><b>Capital:</b> ${capital}</p></li>
           <li><p><b>Population:</b> ${population}</p></li>
           <li><p><b>Languages:</b> ${Object.values(languages)}</p></li>
